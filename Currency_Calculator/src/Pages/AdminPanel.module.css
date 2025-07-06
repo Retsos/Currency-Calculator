@@ -1,0 +1,79 @@
+.page_container{
+    background-color: #071325;
+    min-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    display: inline-block;
+    font-size: 2.6rem;
+
+
+    @media (max-width: 1200px) {
+        font-size: 2rem;
+    }
+
+    @media (max-width: 992px) {
+        font-size: 1.8rem;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 1.35rem;
+    }
+
+    @media (max-width: 576px) {
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 400px) {
+        font-size: 0.8rem;
+    }
+}
+
+.spotlight_cards{
+    gap: 2rem;
+    margin: 5rem 2rem;
+    @media (max-width :1200px){
+        margin: 3rem 1rem;
+    }
+}
+.spotlightText{
+    display: flex;
+    font-size: 1.6rem ;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    gap: 1rem;
+    color: #AEA3C0FF ;
+
+    @media (max-width :1200px){
+        font-size: 1.4rem ;
+    }
+    @media (max-width :992px){
+        font-size: 1.2rem ;
+    }
+    @media (max-width :576px){
+        padding: 0 1.5rem;
+        font-size: 0.9rem ;
+    }
+    @media (max-width :400px){
+        font-size: 0.8rem ;
+    }
+}
+.TabBox{
+    padding: 0 2rem;
+}
+.tabContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem auto;
+    max-width: 800px;
+}
+.tabContent{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}

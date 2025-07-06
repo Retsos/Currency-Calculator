@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  overflow-x: hidden;
+  display: flex;
+  width: 100%;
+  cursor: auto;
+  min-height: 100vh;
+  flex-direction: column;
+  
+} 

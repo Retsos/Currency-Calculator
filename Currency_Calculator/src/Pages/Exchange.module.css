@@ -1,0 +1,170 @@
+.page_container {
+    background-color: #071325;
+    min-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    display: inline-block;
+    font-size: clamp(0.9rem, 0.5rem + 2vw, 2.6rem);
+}
+
+.sub_title {
+    font-size: 2rem !important;
+    margin-top: 2rem;
+
+    @media (max-width: 992px) {
+        font-size: 1.6rem !important;
+    }
+
+    @media (max-width: 576px) {
+        font-size: 0.8rem !important;
+    }
+
+    @media (max-width: 400px) {
+        font-size: 0.7rem !important;
+    }
+}
+
+.spotlight_cards {
+    display: grid;
+    gap: 2rem;
+    margin: 5rem 2rem !important;
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width :1200px) {
+        width: 80%;
+        margin: 3rem auto !important;
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.spotlightText {
+    display: flex;
+    font-size: 1.6rem;
+    padding: 0 2rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    color: #AEA3C0FF;
+
+    @media (max-width :1200px) {
+        font-size: 1.4rem;
+    }
+
+    @media (max-width :992px) {
+        font-size: 1.2rem;
+    }
+
+    @media (max-width :576px) {
+        padding: 0 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width :400px) {
+        font-size: 0.8rem;
+    }
+}
+
+.BoxContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+}
+
+.formContainer {
+    display: grid;
+    gap: 2rem;
+    margin: 4rem 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+    padding: 4rem;
+
+    @media screen and (max-width: 768px) {
+        padding: 2rem;
+    }
+}
+
+.convertedAmountBox {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.formControl {
+    width: 100%;
+    --primary-main: #90caf9;
+    --primary-dark: #42a5f5;
+    --text-primary: #fff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-placeholder: rgba(255, 255, 255, 0.6);
+}
+
+.formControl :global(.MuiInputBase-input) {
+    color: var(--text-primary) !important;
+    font-size: 1.1rem !important;
+}
+
+.formControl :global(.MuiInputLabel-root) {
+    color: var(--text-secondary) !important;
+    font-size: 1.1rem !important;
+}
+
+.formControl :global(.MuiInputLabel-root.Mui-focused) {
+    color: var(--primary-main) !important;
+}
+
+.formControl :global(.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline) {
+    border-color: var(--primary-main) !important;
+}
+
+.formControl :global(.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline) {
+    border-color: var(--primary-dark) !important;
+}
+
+
+.formControl :global(.MuiSelect-icon) {
+    color: var(--primary-main) !important;
+}
+
+.icon {
+    font-size: 2rem;
+
+    @media screen and (max-width: 576px) {
+        font-size: 1.4rem !important;
+    }
+
+    @media screen and (max-width: 400px) {
+        font-size: 1.2rem !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .formControl {
+        width: 100%;
+    }
+
+    .formControl :global(.MuiInputBase-input),
+    .formControl :global(.MuiInputLabel-root) {
+        font-size: 0.9rem !important;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+    .formControl :global(.MuiInputBase-input) {
+        font-size: 0.8rem !important;
+    }
+}
+@media screen and (max-width: 400px) {
+    .formControl{
+        font-size: 0.7rem !important;
+    }
+}
