@@ -105,7 +105,7 @@ npm run dev
 
 ## ✍️ Author
 
-Made with ❤️ by Gewrgios Retsilas
+Made by Gewrgios Retsilas
 
 ---
 
