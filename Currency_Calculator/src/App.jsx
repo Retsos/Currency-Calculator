@@ -9,7 +9,6 @@ import { Snackbar, Alert, Slide } from '@mui/material';
 import { useSnackbarStore } from './SnackbarStore';
 import PublicOnlyRoute from './PublicOnlyRoute';
 
-
 const SlideTransition = (props) => <Slide {...props} direction="up" />;
 
 function App() {
@@ -17,10 +16,9 @@ function App() {
 
   return (
     <>
-
       <BrowserRouter>
         <Routes>
-          
+
           <Route path="/" element={<HomePage />} />
           <Route path="/Exchange" element={<Exchange />} />
 

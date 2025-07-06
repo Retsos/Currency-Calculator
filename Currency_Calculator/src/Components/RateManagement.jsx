@@ -159,7 +159,6 @@ const RateManagement = () => {
         },
     };
 
-
     const textFieldStyles = {
         '& .MuiInputBase-input': {
             color: 'grey.300',
@@ -513,7 +512,7 @@ const RateManagement = () => {
                             label="Rate Value"
                             name="RateValue"
                             type="number"
-                            className="no-spinner"
+                            className={styles.nospinner}
                             fullWidth
                             error={!!errors.RateValue}
                             helperText={errors.RateValue?.message}

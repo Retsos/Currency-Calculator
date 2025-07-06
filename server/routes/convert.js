@@ -63,8 +63,6 @@ router.post('/', async (req, res) => {
         //  τελικο ποσο
         const convertedAmount = (finalRate * amountToConvert).toFixed(2);
 
-
-
         //κανω αναζητηση να δω αν υπαρχει το rate αλλιως το φτιαχνω για να μην κανει ξανα search οπως και το αναποδο rate
         const existingRate = await Rate.findOne({ FromType, ToType });
         if (!existingRate) {

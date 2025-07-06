@@ -28,14 +28,13 @@ const AdminPanel = () => {
 
         <Navbar />
 
-        <Box sx={{ mt: 5, textAlign: "center" }}>
+        <Box sx={{ textAlign: "center" }}>
 
           <div className='text-center mt-5'>
             <GlitchText className={styles.title}>
               Welcome to the Admin Panel {username} !
             </GlitchText>
           </div>
-
 
           <div className='d-flex justify-content-center gap-4 mt-5 px-3'>
 

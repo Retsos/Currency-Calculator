@@ -53,7 +53,7 @@ const HomePage = () => {
                     </div>
 
                     <div className={styles.btnContainer}>
-                        <Button variant="outlined" className={styles.btn} onClick={() => navigate('/Exchange')}  color="primary" >
+                        <Button variant="outlined" className={styles.btn} onClick={() => navigate('/Exchange')} color="primary" >
                             Try It Now!
                         </Button>
 
@@ -70,7 +70,7 @@ const HomePage = () => {
                             — or —
                         </Typography>
 
-                        <Button variant="outlined" className={styles.btn} onClick={() => navigate('/AdminPanel')}  color="secondary" >
+                        <Button variant="outlined" className={styles.btn} onClick={() => navigate('/AdminPanel')} color="secondary" >
                             Admin Login
                         </Button>
                     </div>
@@ -78,7 +78,6 @@ const HomePage = () => {
                 </section>
             </div>
             <Footer></Footer>
-
         </>
     )
 }

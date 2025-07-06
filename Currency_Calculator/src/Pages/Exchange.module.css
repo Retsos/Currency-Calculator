@@ -86,7 +86,9 @@
     padding: 4rem;
 
     @media screen and (max-width: 768px) {
-        padding: 2rem;
+        grid-template-columns: repeat(1, 1fr);
+        place-items: center;
+        width: 100%;
     }
 }
 
@@ -148,7 +150,8 @@
 
 @media screen and (max-width: 768px) {
     .formControl {
-        width: 100%;
+
+        width: 90%;
     }
 
     .formControl :global(.MuiInputBase-input),
@@ -163,8 +166,9 @@
         font-size: 0.8rem !important;
     }
 }
+
 @media screen and (max-width: 400px) {
-    .formControl{
+    .formControl {
         font-size: 0.7rem !important;
     }
 }

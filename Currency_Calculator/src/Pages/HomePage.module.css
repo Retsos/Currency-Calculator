@@ -45,38 +45,43 @@
     }
 }
 
-.spotlight_cards{
+.spotlight_cards {
     display: grid;
     gap: 2rem;
     margin: 5rem 2rem;
     grid-template-columns: repeat(2, 1fr);
-    @media (max-width :1200px){
+
+    @media (max-width :1200px) {
         margin: 3rem 1rem;
         grid-template-columns: repeat(1, 1fr);
     }
 }
-.spotlightText{
+
+.spotlightText {
     display: flex;
-    font-size: 1.6rem ;
+    font-size: 1.6rem;
     padding: 0 2rem;
     justify-content: center;
     align-items: center;
     text-align: center;
     gap: 1rem;
-    color: #AEA3C0FF ;
+    color: #AEA3C0FF;
 
-    @media (max-width :1200px){
-        font-size: 1.4rem ;
+    @media (max-width :1200px) {
+        font-size: 1.4rem;
     }
-    @media (max-width :992px){
-        font-size: 1.2rem ;
+
+    @media (max-width :992px) {
+        font-size: 1.2rem;
     }
-    @media (max-width :576px){
+
+    @media (max-width :576px) {
         padding: 0 1.5rem;
-        font-size: 0.9rem ;
+        font-size: 0.9rem;
     }
-    @media (max-width :400px){
-        font-size: 0.8rem ;
+
+    @media (max-width :400px) {
+        font-size: 0.8rem;
     }
 }
 

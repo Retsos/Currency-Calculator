@@ -82,7 +82,6 @@ const Exchange = () => {
         }
         catch (err) {
             setConversionError('Exchange Failed. Please try again.');
-            console.error(err);
         }
         finally {
             setIsConverting(false);
@@ -166,7 +165,7 @@ const Exchange = () => {
                                 >
 
 
-                                    <FormControl variant="outlined"  className={styles.formControl}>
+                                    <FormControl variant="outlined" className={styles.formControl}>
                                         <InputLabel id="from-currency-label">From</InputLabel>
                                         <Controller
                                             name="coinFrom"
@@ -220,9 +219,9 @@ const Exchange = () => {
                                         )}
                                     </FormControl>
 
-                                    <FormControl variant="outlined"  className={styles.formControl}>
+                                    <FormControl variant="outlined" className={styles.formControl}>
                                         <InputLabel id="To-currency-label">
-                                            To 
+                                            To
                                         </InputLabel>
                                         <Controller
                                             name="coinTo"

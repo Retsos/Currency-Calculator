@@ -7,7 +7,7 @@ export const useAuthStore = create((set) => ({
   username: localStorage.getItem('Username'),
   isLoading: false,
   error: null,
-  justLoggedIn: false, // Flag για να ξεχωρίζουμε το "φρέσκο" login
+  justLoggedIn: false, // Flag για να ξεχωριζει το νεο login
 
   login: async (username, password) => {
     set({ isLoading: true, error: null });
@@ -94,10 +94,9 @@ export const useAuthStore = create((set) => ({
       justLoggedIn: false,
     });
       useSnackbarStore.getState().showSnackbar('Logout successful!','error');
-
   },
 
-  // "Καταναλώνει" το flag ώστε να μην ξανα-ενεργοποιηθεί η λογική
+  // τρωει το flag ώστε να μην ξανα-ενεργοποιηθεί η λογική
   consumeJustLoggedIn: () => set({ justLoggedIn: false }),
 
   clearError: () => set({ error: null }),
