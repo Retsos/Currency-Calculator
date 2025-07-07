@@ -49,6 +49,17 @@ BACKEND_PORT=3000
 FRONTEND_PORT= http://localhost:5173
 ```
 
+⚠️ Important:
+Replace the placeholder values in the .env file with your own configuration:
+
+For DATABASE_URL, you can use a free MongoDB cluster from MongoDB Atlas.
+
+Choose a JWT_SECRET.
+
+Define the port your backend server will run on (default: 3000).
+
+Make sure FRONTEND_PORT matches the actual port your React app runs on (e.g., http://localhost:5173).
+
 ## 🛠️ How to Run the App Locally
 
 ### 1. Clone the repository
