@@ -29,7 +29,7 @@ A full-stack currency exchange web application where:
 
 ```
 root/
-├── client/       # React frontend
+├── Currency_Calculator/       # React frontend
 ├── server/       # Express backend
 └── README.md
 ```
