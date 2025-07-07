@@ -38,11 +38,11 @@ router.post('/', async (req, res) => {
             for (const rate of allRates) {
                 //  Προώθηση: current → next
                 if (rate.FromType === current && !visited.has(rate.ToType)) {
-                    const result = findRateRecursive(rate.ToType, target, rateSoFar * rate.RateValue);
+                    const result = findRateRecursive(rate.ToType, target, rateSoFar * rate.RateValue); //αποθηκευει το rate απο from->To  πχ ευρω->δολαριο
                     if (result !== null) return result;
                 }
 
-                //  Οπισθοδρόμηση: current ← next
+                //  Οπισθοδρόμηση: current ← next για τον αμεσο υπολογισμο των αντιστροφων rate πχ ευρω->δολαριο =1.3 ->>> δολαριο->ευρω 1/1,3
                 else if (rate.ToType === current && !visited.has(rate.FromType)) {
                     const result = findRateRecursive(rate.FromType, target, rateSoFar * (1 / rate.RateValue));
                     if (result !== null) return result;
@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
         }
 
         // ξεκιναμε την αναδρομή
-        const finalRate = findRateRecursive(FromType, ToType, 1);
+        const finalRate = findRateRecursive(FromType, ToType, 1); //τελειωνει αν τελειωσουν τα μονοπατια ή current=target 
 
         if (finalRate === null) {
             return res.status(404).json({ message: "No conversion path found." });
