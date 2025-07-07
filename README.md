@@ -46,7 +46,7 @@ Create a `.env` file in the `server` folder with the following:
 DATABASE_URL=your_mongodb_connection_string
 JWT_SECRET=your_super_secret_key
 BACKEND_PORT=3000
-FRONTEND_PORT=5173
+FRONTEND_PORT= http://localhost:5173
 ```
 
 ## 🛠️ How to Run the App Locally
