@@ -30,6 +30,10 @@ const textFieldStyles = {
       fontSize: '0.6rem',
       width: "80px"
     },
+    '&.Mui-disabled': {
+      color: 'grey.500', // ή 'rgba(255,255,255,0.4)' για πιο απαλό
+      WebkitTextFillColor: 'unset', // Fix για Safari που κάνει override
+    }
   },
   '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
   '& .MuiInputLabel-root.Mui-focused': { color: 'primary.main' },
@@ -114,15 +118,15 @@ const CurrencyManagement = () => {
     }
   };
 
-  const handleDelete = async (Code) => {
+  const handleDelete = async (id) => {
     const confirmed = window.confirm("This will also delete all related rates. Are you sure?");
     if (!confirmed) return;
 
     try {
-      const res = await api.delete(`/api/currencies/${Code}`);
+      const res = await api.delete(`/api/currencies/${id}`);
       const deletedRates = res.data.deletedRatesCount || 0;
 
-      setCurrencies((prev) => prev.filter((c) => c.Code !== Code));
+      setCurrencies((prev) => prev.filter((c) => c._id !== id));
 
       showSnackbar(`Currency deleted. ${deletedRates} related rates also removed.`, "success");
     } catch (err) {
@@ -239,7 +243,7 @@ const CurrencyManagement = () => {
                 <IconButton onClick={() => handleEdit(c._id)} color="primary">
                   <EditIcon />
                 </IconButton>
-                <IconButton onClick={() => handleDelete(c.Code)} color="error">
+                <IconButton onClick={() => handleDelete(c._id)} color="error">
                   <DeleteIcon />
                 </IconButton>
               </Stack>

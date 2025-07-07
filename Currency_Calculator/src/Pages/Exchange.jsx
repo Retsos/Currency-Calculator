@@ -78,13 +78,13 @@ const Exchange = () => {
 
             const res = await api.post('api/convert', getData);
             setConvertedAmount(res.data.convertedAmount);
-            setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
         }
         catch (err) {
             setConversionError('Exchange Failed. Please try again.');
         }
         finally {
             setIsConverting(false);
+            setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
         }
     };
 
@@ -314,28 +314,41 @@ const Exchange = () => {
                                 </Box>
                             )}
 
-                            {conversionError && !isConverting && (
-                                <Typography color="error" sx={{ textAlign: 'center', my: 2, fontSize: '1.2rem' }}>
-                                    {conversionError}
-                                </Typography>
-                            )}
-
-                            {convertedAmount !== null && !isConverting && (
+                            {!isConverting && convertedAmount !== null && (
                                 <Box ref={resultRef} className={styles.convertedAmountBox}>
                                     <SpotlightCard spotlightColor="#104926FF">
                                         <Box sx={{ p: 3, textAlign: 'center', color: '#E0E0E0' }}>
                                             <Typography component="p" sx={{ color: '#c8e6c9' }}>
                                                 {Number(amountWatch).toLocaleString()} {coinFromWatch} IS EQUAL TO
                                             </Typography>
-                                            <Typography component="p" sx={{ color: '#fff', fontWeight: 'bold', my: 1 }}>
-                                                {Number(convertedAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {coinToWatch}
-                                                {/* toLocaleString() προσθέτει διαχωριστικά χιλιάδων ).
-                                                undefined: σημαίνει "χρησιμοποίησε το τοπικό locale του browser"*/}
+                                            <Typography
+                                                component="p"
+                                                sx={{ color: '#fff', fontWeight: 'bold', my: 1 }}
+                                            >
+                                                {Number(convertedAmount).toLocaleString(undefined, {
+                                                    minimumFractionDigits: 2,
+                                                    maximumFractionDigits: 2,
+                                                })}{' '}
+                                                {coinToWatch}
                                             </Typography>
                                         </Box>
                                     </SpotlightCard>
                                 </Box>
                             )}
+
+                            {!isConverting && conversionError && (
+                                <Box ref={resultRef} className={styles.convertedAmountBox}>
+                                    <SpotlightCard spotlightColor="#471010">
+                                        <Box sx={{ p: 3, textAlign: 'center' }}>
+                                            <Typography color="error" sx={{ fontSize: '1.2rem' }}>
+                                                {conversionError}
+                                            </Typography>
+                                        </Box>
+                                    </SpotlightCard>
+                                </Box>
+                            )}
+
+
                         </section>
                     </>}
 

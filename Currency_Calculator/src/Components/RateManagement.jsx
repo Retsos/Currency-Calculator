@@ -74,13 +74,25 @@ const RateManagement = () => {
         try {
             const response = await api.put(`/api/rates/${id}`, editedRates);
             const { updated, reverse, deletedId } = response.data;
-            setRates((prev) => {
-                const updatedList = prev
-                    .filter(r => r._id !== id && r._id !== deletedId) // αφαίρεσε το παλιό και deleted reverse αν υπάρχει
-                    .concat([updated, reverse])
-                    .filter(Boolean); // αφαιρεί undefined/null αν δεν υπάρχει reverse
-                return updatedList;
+
+            setRates((prevRates) => {
+                // Αφαίρεση του updated rate
+                let next = prevRates.filter(r => r._id !== id);
+
+                // Αν υπάρχει deleted αντίστροφο rate, αφαίρεσέ το
+                if (deletedId) {
+                    next = next.filter(r => r._id !== deletedId);
+                }
+
+                // Πρόσθεσε updated και reverse  και αφαίρεσε διπλά
+                const newRates = [...next, updated, reverse].filter(Boolean);
+                const uniqueRates = newRates.filter(
+                    (rate, index, self) => self.findIndex(r => r._id === rate._id) === index
+                );
+
+                return uniqueRates;
             });
+
             setEditingRateId(null);
             setEditedRates({});
             showSnackbar("Rate updated successfully.", "success");
@@ -90,6 +102,7 @@ const RateManagement = () => {
             console.log(error);
         }
     };
+
 
     const handleDelete = async (id) => {
         try {

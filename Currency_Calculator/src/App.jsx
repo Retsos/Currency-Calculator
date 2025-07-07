@@ -8,7 +8,7 @@ import AdminPanel from './Pages/AdminPanel';
 import { Snackbar, Alert, Slide } from '@mui/material';
 import { useSnackbarStore } from './SnackbarStore';
 import PublicOnlyRoute from './PublicOnlyRoute';
-
+import ScrollToTop from './Components/ScrollToTop';
 const SlideTransition = (props) => <Slide {...props} direction="up" />;
 
 function App() {
@@ -17,20 +17,22 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
+        <ScrollToTop>
+          <Routes>
 
-          <Route path="/" element={<HomePage />} />
-          <Route path="/Exchange" element={<Exchange />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/Exchange" element={<Exchange />} />
 
-          <Route element={<PublicOnlyRoute />}>
-            <Route path="/Authenticate" element={<Authenticate />} />
-          </Route>
+            <Route element={<PublicOnlyRoute />}>
+              <Route path="/Authenticate" element={<Authenticate />} />
+            </Route>
 
-          <Route element={<ProtectedRoutes />}>
-            <Route path="/AdminPanel" element={<AdminPanel />} />
-          </Route>
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/AdminPanel" element={<AdminPanel />} />
+            </Route>
 
-        </Routes>
+          </Routes>
+        </ScrollToTop>
 
         <Snackbar
           open={open}
@@ -43,6 +45,7 @@ function App() {
             {message}
           </Alert>
         </Snackbar>
+
       </BrowserRouter>
     </>
   )

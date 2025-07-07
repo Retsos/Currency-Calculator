@@ -38,46 +38,109 @@ router.post("/", protect, async (req, res) => {//method gia neo currency
 });
 
 
-router.put("/:Code", protect, async (req, res) => {//method gia update kapoio currency
-
+router.put("/:id", protect, async (req, res) => {
     try {
-        const { Code } = req.params; //pairnw to Code apo ta params tou url
-        const { Name } = req.body; //παιρνω το ονομα απο το req
+        // παιρνω το ιδ
+        const { id } = req.params;
+        // παιρνω τα  Code και Name από το request 
+        const { Code: newCode, Name: newName } = req.body;
 
-        if (!Name) {
-            return res.status(400).json({ message: "Please provide all required fields." });
+        // ελγχος εγκυροτητας
+        if (!newCode || newCode.trim() === "" || !newName || newName.trim() === "") {
+            return res
+                .status(400)
+                .json({ message: "Παρακαλώ δώστε έγκυρο κωδικό και όνομα." });
         }
 
-        // Έλεγχος αν υπάρχει άλλο νόμισμα με το ίδιο όνομα αλλά διαφορετικό Code
-        const existingCurrency = await Currency.findOne({ Name: Name, Code: { $ne: Code } });
-        if (existingCurrency) {
-            return res.status(400).json({ message: "Currency already exists." })
+        // βρισκω το νομισμα με βαση το ιδ της βασης
+        const currentCurrency = await Currency.findById(id);
+        if (!currentCurrency) {
+            return res.status(404).json({ message: "Το νόμισμα δεν βρέθηκε." });
         }
 
-        const updatedCurrency = await Currency.findOneAndUpdate({ Code: Code }, req.body, { new: true }); //kanw search me vasi to code gia na vrw to swsto currency
+        // παιρνω τις παλιες τιμες για ελεγχο
+        const oldCode = currentCurrency.Code;
+        const codeChanged = oldCode !== newCode;
+        const nameChanged = currentCurrency.Name !== newName;
 
-        if (!updatedCurrency) {
-            return res.status(404).json({ message: "Currency not found" });// error an den vrethei to item me to dwsmeno Code
+        // αν δεν εχει αλλαξει ο code / name τα επιστρεφω οπως ηταν
+        if (!codeChanged && !nameChanged) {
+            return res.status(200).json(currentCurrency);
         }
-        res.status(200).json(updatedCurrency); // epistrefw 200 status + neo currency
 
+        // ελεγχω αν ειναι μοναδικα στην βαση δεν πρεπει να μοιαζουν με τα αλλα
+        const checks = [];
+        if (codeChanged) {
+            checks.push({ Code: { $regex: `^${newCode}$`, $options: "i" } });
+        }
+        if (nameChanged) {
+            checks.push({ Name: { $regex: `^${newName}$`, $options: "i" } });
+        }
+
+        if (checks.length > 0) {
+            const existingCurrency = await Currency.findOne({
+                $or: checks,
+                _id: { $ne: id }, // εκτος του ιδιου 
+            });
+
+            if (existingCurrency) {
+                // ελεγχος για ιδιο Code
+                if (
+                    codeChanged &&
+                    existingCurrency.Code.toLowerCase() === newCode.toLowerCase()
+                ) {
+                    return res
+                        .status(400)
+                        .json({ message: "Υπάρχει ήδη νόμισμα με τον ίδιο κωδικό." });
+                }
+                // ελεγχος για ιδιο  Name
+                if (
+                    nameChanged &&
+                    existingCurrency.Name.toLowerCase() === newName.toLowerCase()
+                ) {
+                    return res
+                        .status(400)
+                        .json({ message: "Υπάρχει ήδη νόμισμα με το ίδιο όνομα." });
+                }
+            }
+        }
+
+        // update πεδιων
+        currentCurrency.Code = newCode;
+        currentCurrency.Name = newName;
+        await currentCurrency.save();
+
+        // ενημερωση των rates Που περιεχουν το νομισμα
+        if (codeChanged) {
+            await Rate.updateMany(
+                { FromType: oldCode },
+                { $set: { FromType: newCode } }
+            );
+            await Rate.updateMany(
+                { ToType: oldCode },
+                { $set: { ToType: newCode } }
+            );
+        }
+
+        res.status(200).json(currentCurrency);
     } catch (error) {
-        res.status(500).json({ message: error.message }); //error apo server
+        res.status(500).json({ message: error.message });
     }
 });
 
 
-router.delete("/:Code", protect, async (req, res) => {
+router.delete("/:id", protect, async (req, res) => {
     try {
-        const { Code } = req.params; // παιρνω το code apo ta params
-
-        const deletedCurrency = await Currency.findOneAndDelete({ Code: Code });
+        const { id } = req.params;
+        const deletedCurrency = await Currency.findByIdAndDelete(id);
 
         if (!deletedCurrency) {
             return res.status(404).json({ message: "Currency not found" });
         }
 
-        // διαγραφη των rate που εχουν αυτο το currency
+        // Get the Code from the deleted currency to delete associated rates
+        const { Code } = deletedCurrency;
+        // Delete rates that have this currency
         const deleteResult = await Rate.deleteMany({
             $or: [{ FromType: Code }, { ToType: Code }]
         });
